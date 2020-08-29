@@ -64,8 +64,9 @@ function askManager(){
     ]
   ).then(function(answers){
     const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-    teamMembers.push(manager)
-  })
+    teamMembers.push(manager);
+    addEmployees()
+  });
 }
 
 function askIntern(){
@@ -118,8 +119,9 @@ function askIntern(){
       }
     ]
   ).then(function(answers){
-    const intern = new Intern(answers.name, answers.id, answers.email, answers.officeNumber);
-    teamMembers.push(intern)
+    const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+    teamMembers.push(intern);
+    addEmployees()
   })
 }
 
@@ -174,7 +176,8 @@ function askEngineer(){
     ]
   ).then(function(answers){
     const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-    teamMembers.push(engineer)
+    teamMembers.push(engineer);
+    addEmployees()
   })
 }
 
@@ -182,24 +185,28 @@ function addEmployees() {
   inquirer.prompt([{
     type: "list",
     name: "switch",
-    choices: ["engineer","intern","manager", "done"],
+    choices: ["engineer","intern", "done"],
     message: "add employees?"
   }]).then(function(answer){
     switch(answer.switch){
       case "engineer":
         askEngineer()
-      case "manager":
-        askManager()
-      case "intern(":
+        break;
+      case "intern":
         askIntern()
+        break;
+      default:
+        console.log("creating team")
+        saveEmployees();
     }
   })
 }
 
 const saveEmployees = ()=> {
   if(!fs.existsSync(OUTPUT_DIR)){
-    fs.mkdir(OUTPUT_DIR);
+    fs.mkdirSync(OUTPUT_DIR);
   }
-  fs.writeFileSync(outputPath, render(teamMembers))
+  fs.writeFileSync(outputPath, render(teamMembers), "utf-8")
 }
 
+askManager()
