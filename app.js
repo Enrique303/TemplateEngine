@@ -24,23 +24,42 @@ function askManager(){
           if(answer !== "") {
             return true;
           }
-          return "no empty spaces"
+          return "Please enter at least one character"
         }
       },
       {
         type: "input",
         name: "id",
-        message:"What is the manager's id?"
+        message:"What is the manager's id?",
+        validate: function(answer) {
+          if(answer !== "") {
+            return true;
+          }
+          return "Please enter at least one character"
+        }
       },
       {
         type: "input",
         name: "email",
         message: "what is the manager's email address?",
+        validate: function(answer){
+          const emailCheck = answer.match(/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})$/);
+          if(emailCheck){
+            return true;
+          }
+          return "please enter a valid eamil address"
+        }
       },
       {
         type: "input",
         name: "officeNumber",
-        message: "what is the manager's office number?"
+        message: "what is the manager's office number?",
+        validate: function(answer) {
+          if(answer !== "") {
+            return true;
+          }
+          return "Please enter at least one character"
+        }
       }
     ]
   ).then(function(answers){
@@ -55,22 +74,47 @@ function askIntern(){
       {
         type: "input",
         name: "name",
-        message: "what is the inter's name",
+        message: "what is the inter's name?",
+        validate: function(answer) {
+          if(answer !== "") {
+            return true;
+          }
+          return "Please enter at least one character"
+        }
       },
       {
         type: "input",
         name: "id",
-        message:"what is the inter's id?"
+        message:"what is the inter's id?",
+        validate: function(answer) {
+          if(answer !== "") {
+            return true;
+          }
+          return "Please enter at least one character"
+        }
       },
       {
         type: "input",
         name: "email",
-        message: "what is the inter's email address?",
+        message: "what is the intern's email address?",
+        validate: function(answer){
+          const emailCheck = answer.match(/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})$/);
+          if(emailCheck){
+            return true;
+          }
+          return "please enter a valid eamil address"
+        }
       },
       {
         type: "input",
         name: "school",
-        message: "what school is the intern attending?"
+        message: "what school is the intern attending?",
+        validate: function(answer) {
+          if(answer !== "") {
+            return true;
+          }
+          return "Please enter at least one character"
+        }
       }
     ]
   ).then(function(answers){
@@ -86,21 +130,46 @@ function askEngineer(){
         type: "input",
         name: "name",
         message: "what is the engineer's name?",
+        validate: function(answer) {
+          if(answer !== "") {
+            return true;
+          }
+          return "Please enter at least one character"
+        }
       },
       {
         type: "input",
         name: "id",
-        message:"what is the engineer's id?"
+        message:"what is the engineer's id?",
+        validate: function(answer) {
+          if(answer !== "") {
+            return true;
+          }
+          return "Please enter at least one character"
+        }
       },
       {
         type: "input",
         name: "email",
         message: "what is the engineer's email address?",
+        validate: function(answer){
+          const emailCheck = answer.match(/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})$/);
+          if(emailCheck){
+            return true;
+          }
+          return "please enter a valid eamil address"
+        }
       },
       {
         type: "input",
         name: "github",
-        message: "what is the engineer's Github username?"
+        message: "what is the engineer's Github username?",
+        validate: function(answer) {
+          if(answer !== "") {
+            return true;
+          }
+          return "Please enter at least one character"
+        }
       }
     ]
   ).then(function(answers){
@@ -119,6 +188,10 @@ function addEmployees() {
     switch(answer.switch){
       case "engineer":
         askEngineer()
+      case "manager":
+        askManager()
+      case "intern(":
+        askIntern()
     }
   })
 }
@@ -127,24 +200,6 @@ const saveEmployees = ()=> {
   if(!fs.existsSync(OUTPUT_DIR)){
     fs.mkdir(OUTPUT_DIR);
   }
-  fs.writeFileSync()
+  fs.writeFileSync(outputPath, render(teamMembers))
 }
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
