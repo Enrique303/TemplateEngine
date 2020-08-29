@@ -29,18 +29,18 @@ function askManager(){
       },
       {
         type: "input",
-        name: "email",
-        message: "what is your email address?",
+        name: "id",
+        message:"What is the manager's id?"
       },
       {
         type: "input",
-        name: "id",
-        message:"?"
+        name: "email",
+        message: "what is the manager's email address?",
       },
       {
         type: "input",
         name: "officeNumber",
-        message: "what is the office number?"
+        message: "what is the manager's office number?"
       }
     ]
   ).then(function(answers){
@@ -55,22 +55,22 @@ function askIntern(){
       {
         type: "input",
         name: "name",
-        message: "",
-      },
-      {
-        type: "input",
-        name: "email",
-        message: "what is your email address?",
+        message: "what is the inter's name",
       },
       {
         type: "input",
         name: "id",
-        message:"?"
+        message:"what is the inter's id?"
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "what is the inter's email address?",
       },
       {
         type: "input",
         name: "school",
-        message: ""
+        message: "what school is the intern attending?"
       }
     ]
   ).then(function(answers){
@@ -85,22 +85,22 @@ function askEngineer(){
       {
         type: "input",
         name: "name",
-        message: "",
-      },
-      {
-        type: "input",
-        name: "email",
-        message: "what is your email address?",
+        message: "what is the engineer's name?",
       },
       {
         type: "input",
         name: "id",
-        message:"?"
+        message:"what is the engineer's id?"
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "what is the engineer's email address?",
       },
       {
         type: "input",
         name: "github",
-        message: ""
+        message: "what is the engineer's Github username?"
       }
     ]
   ).then(function(answers){
@@ -121,6 +121,13 @@ function addEmployees() {
         askEngineer()
     }
   })
+}
+
+const saveEmployees = ()=> {
+  if(!fs.existsSync(OUTPUT_DIR)){
+    fs.mkdir(OUTPUT_DIR);
+  }
+  fs.writeFileSync()
 }
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
